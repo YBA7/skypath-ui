@@ -2,11 +2,22 @@ import { axiosInstance, API_URL } from './authService';
 
 const locationService = {
     createLocation: async (locationRequest) => {
-        const response = await axiosInstance.post(`${API_URL}/location/create`, locationRequest);
+        try {
+            const response = await axiosInstance.post(`${API_URL}/location/create`, locationRequest);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    getLocations: async (page = 0, size = 1000) => {
+        const response = await axiosInstance.get(`${API_URL}/location/get`, {
+            params: { page, size }
+        });
         return response.data;
     },
 
-    getLocations: async (page = 0, size = 10) => {
+    getLocationsPaginated: async (page = 0, size = 10) => {
         const response = await axiosInstance.get(`${API_URL}/location/get`, {
             params: { page, size }
         });

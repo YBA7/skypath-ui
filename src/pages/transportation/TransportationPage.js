@@ -25,9 +25,8 @@ const TransportationPage = () => {
     });
 
     const transportationTypes = {
-        1: 'Uçak',
-        2: 'Otobüs',
-        3: 'Tren'
+        1: 'Flight',
+        2: 'Other'
     };
 
     const fetchTransportations = async () => {
@@ -91,7 +90,16 @@ const TransportationPage = () => {
             });
             fetchTransportations();
         } catch (err) {
-            setError(err.message || 'Ulaşım bilgisi oluşturulurken bir hata oluştu.');
+            console.error('Create error:', err);
+            if (err.response?.data?.errorMessage) {
+                if (err.response.data.errorMessage.includes('already exists')) {
+                    setError('Bu kalkış, varış ve ulaşım tipi kombinasyonu zaten mevcut.');
+                } else {
+                    setError(err.response.data.errorMessage);
+                }
+            } else {
+                setError('Ulaşım bilgisi oluşturulurken bir hata oluştu.');
+            }
         } finally {
             setLoading(false);
         }

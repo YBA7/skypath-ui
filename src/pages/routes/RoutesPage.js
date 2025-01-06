@@ -59,10 +59,8 @@ const RoutesPage = () => {
 
     const getTransportationTypeText = (type) => {
         const types = {
-            'BUS': 'Otobüs',
-            'PLANE': 'Uçak',
-            'TRAIN': 'Tren'
-            // Diğer ulaşım tipleri eklenebilir
+            'BUS': 'Other',
+            'PLANE': 'Flight',
         };
         return types[type] || type;
     };

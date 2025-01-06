@@ -24,7 +24,7 @@ const LocationsPage = () => {
     const fetchLocations = async () => {
         try {
             setLoading(true);
-            const response = await locationService.getLocations(currentPage);
+            const response = await locationService.getLocationsPaginated(currentPage);
             setLocations(response.locationDtoList);
             setTotalPages(response.totalPages);
         } catch (err) {
@@ -58,7 +58,16 @@ const LocationsPage = () => {
             setFormData({ name: '', type: '' });
             fetchLocations();
         } catch (err) {
-            setError(err.message || 'Lokasyon oluşturulurken bir hata oluştu.');
+            console.error('Create error:', err);
+            if (err.response?.data?.error) {
+                if (err.response.data.error.includes('already exists')) {
+                    setError('Bu isim ve tipte bir lokasyon zaten mevcut.');
+                } else {
+                    setError(err.response.data.error);
+                }
+            } else {
+                setError('Lokasyon oluşturulurken bir hata oluştu.');
+            }
         } finally {
             setLoading(false);
         }
@@ -76,8 +85,18 @@ const LocationsPage = () => {
             await locationService.updateLocation(selectedLocation.id, formData);
             setSuccessMessage('Lokasyon başarıyla güncellendi.');
             fetchLocations();
+            setActiveTab('list');
         } catch (err) {
-            setError(err.message || 'Lokasyon güncellenirken bir hata oluştu.');
+            console.error('Update error:', err);
+            if (err.response?.data?.errorMessage) {
+                if (err.response.data.errorMessage.includes('already exists')) {
+                    setError('Bu isim ve tipte bir lokasyon zaten mevcut.');
+                } else {
+                    setError(err.response.data.errorMessage);
+                }
+            } else {
+                setError('Lokasyon güncellenirken bir hata oluştu.');
+            }
         } finally {
             setLoading(false);
         }
@@ -102,9 +121,8 @@ const LocationsPage = () => {
 
     const getLocationType = (type) => {
         const types = {
-            1: 'Havalimanı',
-            2: 'Otobüs Terminali',
-            3: 'Tren İstasyonu'
+            1: 'FLIGHT',
+            2: 'OTHER',
         };
         return types[type] || 'Bilinmiyor';
     };
@@ -217,9 +235,8 @@ const LocationsPage = () => {
                                 required
                             >
                                 <option value="">Seçiniz</option>
-                                <option value="1">Havalimanı</option>
-                                <option value="2">Otobüs Terminali</option>
-                                <option value="3">Tren İstasyonu</option>
+                                <option value="1">FLIGHT</option>
+                                <option value="2">OTHER</option>
                             </select>
                         </div>
 
@@ -290,9 +307,8 @@ const LocationsPage = () => {
                                     required
                                 >
                                     <option value="">Seçiniz</option>
-                                    <option value="1">Havalimanı</option>
-                                    <option value="2">Otobüs Terminali</option>
-                                    <option value="3">Tren İstasyonu</option>
+                                    <option value="1">FLIGHT</option>
+                                    <option value="2">OTHER</option>
                                 </select>
                             </div>
 

@@ -2,8 +2,12 @@ import { axiosInstance, API_URL } from './authService';
 
 const transportationService = {
     createTransportation: async (transportationRequest) => {
-        const response = await axiosInstance.post(`${API_URL}/transportation/create`, transportationRequest);
-        return response.data;
+        try {
+            const response = await axiosInstance.post(`${API_URL}/transportation/create`, transportationRequest);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     },
 
     getTransportations: async (page = 0, size = 10) => {
