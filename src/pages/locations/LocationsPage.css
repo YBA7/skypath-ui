@@ -9,10 +9,83 @@
     margin-bottom: 2rem;
 }
 
-.locations-form-container {
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tab {
+    padding: 0.8rem 1.5rem;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background: #0a192f;
+    color: white;
+    border-color: #0a192f;
+}
+
+.locations-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.locations-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.location-card {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.location-card h4 {
+    color: #0a192f;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.location-details p {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.location-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.edit-button, .delete-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.edit-button {
+    background: #0a192f;
+    color: white;
+}
+
+.delete-button {
+    background: #dc3545;
+    color: white;
 }
 
 .locations-form {
@@ -20,6 +93,8 @@
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .form-group {
@@ -30,7 +105,6 @@
     display: block;
     margin-bottom: 0.5rem;
     color: #333;
-    font-weight: 500;
 }
 
 .form-group input,
@@ -49,26 +123,29 @@
 .submit-button {
     width: 100%;
     padding: 1rem;
-    background-color: #28a745;
+    background: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-    background-color: #218838;
 }
 
 .submit-button:disabled {
-    background-color: #ccc;
+    background: #ccc;
     cursor: not-allowed;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
 .error-message {
-    background-color: #ffe6e6;
+    background: #ffe6e6;
     color: #dc3545;
     padding: 1rem;
     border-radius: 4px;
@@ -76,43 +153,15 @@
 }
 
 .success-message {
-    background-color: #d4edda;
+    background: #d4edda;
     color: #155724;
     padding: 1rem;
     border-radius: 4px;
     margin-bottom: 1rem;
 }
 
-.api-endpoints {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.api-endpoints h3 {
-    color: #0a192f;
-    margin-bottom: 1.5rem;
-}
-
-.endpoint {
-    margin-bottom: 1.5rem;
-}
-
-.endpoint h4 {
-    color: #333;
-    margin-bottom: 0.5rem;
-}
-
-.endpoint code {
-    display: block;
-    background-color: #f8f9fa;
-    padding: 0.8rem;
-    border-radius: 4px;
-    color: #e83e8c;
-    font-family: monospace;
-}
-
-.add-location-button {
-    /* Yeni lokasyon ekleme butonu */
+.loading {
+    text-align: center;
+    color: #666;
+    margin: 2rem 0;
 } 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage';
 import RoutesPage from './pages/routes/RoutesPage';
 import LocationsPage from './pages/locations/LocationsPage';
@@ -8,10 +8,13 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import TransportationPage from './pages/transportation/TransportationPage';
 
 function App() {
-    return (
-        <Router>
+    const AppContent = () => {
+        const location = useLocation();
+        const isLoginPage = location.pathname === '/login';
+        
+        return (
             <div className="app">
-                {window.location.pathname !== '/login' && <Navbar />}
+                {!isLoginPage && <Navbar />}
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route 
@@ -35,6 +38,12 @@ function App() {
                     <Route path="/" element={<Navigate to="/login" replace />} />
                 </Routes>
             </div>
+        );
+    };
+    
+    return (
+        <Router>
+            <AppContent />
         </Router>
     );
 }
